@@ -6,11 +6,12 @@ import {useNavigate} from 'react-router-dom';
 import Games from './pages/Games.tsx';
 import Login from './pages/Login.tsx';
 import Inventory from './pages/Inventory.tsx';
+import Callback from './pages/Callback.tsx';
 //Types
 import {User, Game} from './types.tsx';
 //Redux
 import {useSelector, useDispatch} from 'react-redux';
-import {selectUser, changeUser, resetUser} from './slices/userSlice.tsx';
+import {selectUser, changeUser} from './slices/userSlice.tsx';
 import {selectGame} from './slices/gameSlice.tsx';
 //Styling
 import './App.css';
@@ -79,7 +80,6 @@ const App = (): JSX.Element => {
   //Set active user on login
   useEffect(() => {
     if (user) {
-      console.log(user);
       getUserData(user);
     }
   }, [user])
@@ -89,6 +89,7 @@ const App = (): JSX.Element => {
         <Route path='/' element={<Login alertText={alert} />} />
         <Route path='/games' element={<Games />} />
         <Route path='/inventory'  element={<Inventory />} />
+        <Route path='/callback' element={<Callback />} />
       </Routes>
   );
 }

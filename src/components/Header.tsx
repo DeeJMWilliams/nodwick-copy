@@ -24,6 +24,11 @@ const Header = ({buttons, title}:headerProps) => {
     const user:User = useSelector(selectUser);
     const {logout} = useAuth0();
 
+    const signout = () => {
+        logout();
+        dispatch(resetUser());
+    }
+
     return(
         <React.Fragment>
             <About active={about} toggle={() => setAbout(!about)} />
@@ -33,7 +38,7 @@ const Header = ({buttons, title}:headerProps) => {
                     <Nav.Link onClick={()=>setAbout(!about)}>About</Nav.Link>
                     <Nav.Link>{user.name}</Nav.Link>
                     {buttons()}
-                    <Nav.Link onClick={() => logout()}>Logout</Nav.Link>
+                    <Nav.Link onClick={signout}>Logout</Nav.Link>
                 </Nav>
                 {title()}
             </Navbar>

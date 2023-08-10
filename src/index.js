@@ -21,7 +21,7 @@ const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
 const Auth0ProviderWithCallback = () => {
   const navigate = useNavigate();
   const onRedirectCallback = (appState) => {
-    navigate((appState && appState.returnTo) || window.location.pathname);
+    navigate((appState && appState.returnTo) || '/callback');
   };
 
   const providerConfig = {

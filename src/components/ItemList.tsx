@@ -45,7 +45,6 @@ const ItemList = () => {
         return (
                 <ListGroup.Item 
                 className={item.iid === activeItem.iid ? 'active': ''} 
-                key={item.iid} 
                 onClick={() => dispatch(setItem(item))}>
                         {item.name}
                 </ListGroup.Item>
@@ -66,7 +65,7 @@ const ItemList = () => {
             {items.length >= 1 ?
             items.map((item:Item) => {
                 return(<div draggable className="draggable"
-                onDragStart={() => handleDragStart(item)}><ItemListItem item={item} key={item.iid} /></div>)
+                onDragStart={() => handleDragStart(item)} key={item.iid}><ItemListItem item={item} /></div>)
             }) :
             location.lid ? <ListGroup.Item>No entries yet!</ListGroup.Item> : <React.Fragment></React.Fragment>}
         </ListGroup>
