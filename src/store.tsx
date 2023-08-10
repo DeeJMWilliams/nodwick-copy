@@ -7,6 +7,7 @@ import allLocationsReducer from './slices/allLocationSlice.tsx';
 import locationReducer from './slices/locationSlice.tsx';
 import locationItemReducer from './slices/locationItemSlice.tsx';
 import itemReducer from './slices/itemSlice.tsx';
+import dragReducer from './slices/dragSlice.tsx';
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     activeLocation: locationReducer,
     locationItems: locationItemReducer,
     activeItem: itemReducer,
+    draggedItem: dragReducer,
   },
 });

@@ -9,6 +9,7 @@ import { selectLocation } from '../slices/locationSlice.tsx';
 import {selectGame} from '../slices/gameSlice.tsx';
 import { setLocationItems, selectLocationItems } from '../slices/locationItemSlice.tsx';
 import { setItem, selectItem } from '../slices/itemSlice.tsx';
+import {setDraggedItem} from '../slices/dragSlice.tsx';
 //Methods
 import { getLocationItems } from '../methods.tsx';
 //Components
@@ -41,13 +42,19 @@ const ItemList = () => {
     }
 
     const ItemListItem = ({item}:ListItemProps):JSX.Element => {
-        return <ListGroup.Item 
-            className={item.iid === activeItem.iid ? 'active': ''} 
-            key={item.iid} 
-            onClick={() => dispatch(setItem(item))}>
-                {item.name}
-            </ListGroup.Item>
+        return (
+                <ListGroup.Item 
+                className={item.iid === activeItem.iid ? 'active': ''} 
+                key={item.iid} 
+                onClick={() => dispatch(setItem(item))}>
+                        {item.name}
+                </ListGroup.Item>
+        )
     }
+
+    const handleDragStart = (item:Item):void => {
+        dispatch(setDraggedItem(item));
+    };
 
     return(
         <React.Fragment>
@@ -58,7 +65,8 @@ const ItemList = () => {
         <ListGroup>
             {items.length >= 1 ?
             items.map((item:Item) => {
-                return(<ItemListItem item={item} key={item.iid} />)
+                return(<div draggable className="draggable"
+                onDragStart={() => handleDragStart(item)}><ItemListItem item={item} key={item.iid} /></div>)
             }) :
             location.lid ? <ListGroup.Item>No entries yet!</ListGroup.Item> : <React.Fragment></React.Fragment>}
         </ListGroup>
