@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/nodwick-copy/static/css/main.222c0f55.css",
+    "main.js": "/nodwick-copy/static/js/main.f7e6ae4d.js",
+    "index.html": "/nodwick-copy/index.html",
+    "main.222c0f55.css.map": "/nodwick-copy/static/css/main.222c0f55.css.map",
+    "main.f7e6ae4d.js.map": "/nodwick-copy/static/js/main.f7e6ae4d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.222c0f55.css",
+    "static/js/main.f7e6ae4d.js"
+  ]
+}
