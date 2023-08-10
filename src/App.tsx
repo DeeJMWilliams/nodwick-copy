@@ -70,7 +70,6 @@ const App = (): JSX.Element => {
 
   const createNewUser = (user) => {
     const userData =  defineUser(user);
-    console.log(userData);
     addUser(userData)
     .then(response => {
       dispatch(changeUser(response.data));

@@ -12,12 +12,15 @@ import { selectLocation } from '../slices/locationSlice';
 import {selectGame} from '../slices/gameSlice.tsx';
 //Methods
 import {addNewItem} from '../methods.tsx';
+//Components
+import CharError from './CharError.tsx';
 
 const NewItemForm = ({active, toggle}) => {
     const dispatch = useDispatch();
     const location = useSelector(selectLocation);
     const game = useSelector(selectGame);
     const [itemData, setItemData] = useState({name:'', type:''});
+    const [alert, setAlert] = useState({name: false, type: false});
 
     const handleSubmit = (event:React.FormEvent) => {
         event.preventDefault();
@@ -38,7 +41,13 @@ const NewItemForm = ({active, toggle}) => {
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         if (event.target) {
             const {target} = event;
-            setItemData({...itemData, [target.name]: target.value});
+            if (target.value.length < 30) {
+            setItemData({...itemData, [target.name]: target.value})
+            } else {
+                setItemData({...itemData, [target.name]: target.value.slice(0,30)});
+                setAlert({...alert, [target.name]: true});
+                setTimeout(() => setAlert({...alert, [target.name]: false}), 2000);
+            }
         }
     }
 
@@ -52,11 +61,15 @@ const NewItemForm = ({active, toggle}) => {
                 <Modal.Body>
                     <Form.Group controlId="name">
                         <Form.Label>Item Name</Form.Label>
-                        <Form.Control as="input" name="name" placeholder="+1 Sword" onChange={handleChange} />
+                        <CharError active={alert.name}>
+                            <Form.Control as="input" name="name" placeholder="+1 Sword" value={itemData.name} onChange={handleChange} />
+                        </CharError>
                     </Form.Group>
                     <Form.Group controlId="type">
                         <Form.Label>Item Type</Form.Label>
-                        <Form.Control as="input" name="type" placeholder="Weapon" onChange={handleChange}/>
+                        <CharError active={alert.type}>
+                            <Form.Control as="input" name="type" placeholder="Weapon" value={itemData.type} onChange={handleChange}/>
+                        </CharError>
                     </Form.Group>
             </Modal.Body>
             <Modal.Footer>

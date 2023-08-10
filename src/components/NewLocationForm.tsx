@@ -11,11 +11,14 @@ import {selectGame} from '../slices/gameSlice.tsx';
 import { addLocation } from '../slices/allLocationSlice.tsx';
 //Methods
 import { addNewLocation } from '../methods.tsx';
+//Components
+import CharError from './CharError.tsx';
 
 const NewLocationForm = ({category, active, toggle}) => {
     const dispatch = useDispatch();
     const [locationName,setLocationName] = useState('')
     const game = useSelector(selectGame);
+    const [alert, setAlert] = useState(false);
 
     const handleSubmit = (event:React.FormEvent) => {
         event.preventDefault();
@@ -31,7 +34,13 @@ const NewLocationForm = ({category, active, toggle}) => {
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         if (event.target) {
             const {target} = event;
-            setLocationName(target.value);
+            if (target.value.length < 30) {setLocationName(target.value);}
+            else {
+                setLocationName(target.value.slice(0,30));
+                setAlert(true);
+                setTimeout(() => setAlert(false), 2000);
+            }
+            
         }
     };
 
@@ -45,7 +54,9 @@ const NewLocationForm = ({category, active, toggle}) => {
                 <Modal.Body>
                     <Form.Group controlId="name">
                         <Form.Label>Name</Form.Label>
-                        <Form.Control as="input" name="name" placeholder="Name" onChange={handleChange} />
+                        <CharError active={alert}>
+                        <Form.Control as="input" name="name" placeholder="Name" onChange={handleChange} value={locationName} />
+                        </CharError>
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
