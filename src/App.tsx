@@ -89,6 +89,7 @@ const App = (): JSX.Element => {
         <Route path='/games' element={<Games />} />
         <Route path='/inventory'  element={<Inventory />} />
         <Route path='/callback' element={<Callback />} />
+        <Route path='/favicon.ico' element={<img src='../public/favicon.ico' />} />
       </Routes>
   );
 }

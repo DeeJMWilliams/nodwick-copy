@@ -38,7 +38,7 @@ const NewLocationForm = ({category, active, toggle}) => {
             else {
                 setLocationName(target.value.slice(0,30));
                 setAlert(true);
-                setTimeout(() => setAlert(false), 2000);
+                setTimeout(() => setAlert(false), 3000);
             }
             
         }

@@ -46,7 +46,7 @@ const NewItemForm = ({active, toggle}) => {
             } else {
                 setItemData({...itemData, [target.name]: target.value.slice(0,30)});
                 setAlert({...alert, [target.name]: true});
-                setTimeout(() => setAlert({...alert, [target.name]: false}), 2000);
+                setTimeout(() => setAlert({...alert, [target.name]: false}), 3000);
             }
         }
     }
