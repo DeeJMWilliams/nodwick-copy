@@ -55,7 +55,7 @@ const NewLocationForm = ({category, active, toggle}) => {
                     <Form.Group controlId="name">
                         <Form.Label>Name</Form.Label>
                         <CharError active={alert}>
-                        <Form.Control as="input" name="name" placeholder="Name" onChange={handleChange} value={locationName} />
+                        <Form.Control as="input" name="name" placeholder="Name" onChange={handleChange} value={locationName} required/>
                         </CharError>
                     </Form.Group>
                 </Modal.Body>

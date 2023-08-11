@@ -13,6 +13,9 @@ import {editLocation} from '../slices/allLocationSlice.tsx';
 import {Location} from '../types.tsx';
 //Methods
 import { renameLocation } from '../methods.tsx';
+import { updateOnLength } from '../helpers.tsx';
+//Components
+import CharError from './CharError.tsx';
 
 type PopupProps = {
     active: boolean;
@@ -23,6 +26,7 @@ const LocationEditPopup = ({active, toggle}:PopupProps):JSX.Element => {
     const dispatch = useDispatch();
     const location:Location = useSelector(selectLocation);
     const [locationName, setLocationName] = useState(location.name);
+    const [alert, setAlert] = useState(false);
 
     useEffect(() => {
         setLocationName(location.name);
@@ -31,7 +35,7 @@ const LocationEditPopup = ({active, toggle}:PopupProps):JSX.Element => {
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         if (event.target) {
             const {target} = event;
-            setLocationName(target.value);
+            updateOnLength(target, setLocationName, setAlert);
         }   
     };
 
@@ -45,9 +49,14 @@ const LocationEditPopup = ({active, toggle}:PopupProps):JSX.Element => {
         toggle()
     };
 
+    const close = () => {
+        setLocationName(location.name);
+        toggle();
+    }
+
     return(
         <Modal show={active}>
-            <CloseButton onClick={toggle} />
+            <CloseButton onClick={close} />
             <Modal.Header>
                 <Modal.Title>Edit {location.name}</Modal.Title>
             </Modal.Header>
@@ -55,11 +64,13 @@ const LocationEditPopup = ({active, toggle}:PopupProps):JSX.Element => {
                 <Modal.Body>
                     <Form.Group controlId="name">
                         <Form.Label>{location.type === 'location' ? 'Location' : 'Character'} Name</Form.Label>
-                        <Form.Control as="input" name="name" value={locationName} onChange={handleChange} />
+                        <CharError active={alert}>
+                        <Form.Control as="input" name="name" value={locationName} onChange={handleChange} required/>
+                        </CharError>
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={toggle}>Cancel</Button>
+                    <Button variant="secondary" onClick={close}>Cancel</Button>
                     <Button type="submit" variant="primary">Change</Button>
                 </Modal.Footer>
             </Form>

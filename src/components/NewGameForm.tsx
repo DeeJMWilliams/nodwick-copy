@@ -30,7 +30,7 @@ const NewGameForm = ({active, toggle}: GameFormProps): JSX.Element => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>):void => {
         if (event.target) {
             const {target} = event;
-            updateOnLength(target, setGameName, setAlert);
+            setGameName(target.value);
         }
     } 
 
@@ -71,10 +71,11 @@ const NewGameForm = ({active, toggle}: GameFormProps): JSX.Element => {
         <ListGroup.Item className='newGameForm'>
             <Form onSubmit={submitNewGame}>
                 <Form.Group className='nameField'>
-                    <Form.Label>Name</Form.Label>
-                    <CharError active={alert}>
-                    <Form.Control as="input" name='name' id='name' placeholder='My new game' value={gameName} onChange={handleChange}/>
-                    </CharError>
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <Form.Label>Name</Form.Label>
+                        <Form.Text className='text-muted' >Chars left: {40 - gameName.length}</Form.Text>
+                    </div>
+                    <Form.Control as="input" name='name' id='name' placeholder='My new game' value={gameName} onChange={handleChange} required maxLength={40}/>
                 </Form.Group>
                 <span style={{display: 'flex', justifyContent: 'right', gap: '3px'}}>
                     <Button type='submit' variant='primary'>Create</Button>

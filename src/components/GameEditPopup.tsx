@@ -11,6 +11,9 @@ import { selectGame, setGame } from '../slices/gameSlice.tsx';
 import {updateGame} from '../slices/allGameSlice.tsx';
 //Methods
 import {renameGame} from '../methods.tsx';
+import { updateOnLength } from '../helpers.tsx';
+//Components
+import CharError from './CharError.tsx';
 
 type PopupProps = {
     active: boolean;
@@ -21,11 +24,12 @@ const GameEditPopup = ({active, toggle}:PopupProps):JSX.Element => {
     const dispatch = useDispatch();
     const game = useSelector(selectGame);
     const [gameName, setGameName] = useState(game.name);
+    const [alert, setAlert] = useState(false);
 
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         if (event.target) {
             const {target} = event;
-            setGameName(target.value);
+            updateOnLength(target, setGameName, setAlert);
         }   
     };
 
@@ -40,9 +44,14 @@ const GameEditPopup = ({active, toggle}:PopupProps):JSX.Element => {
         toggle();
     }
 
+    const close = () => {
+        setGameName('');
+        toggle();
+    }
+
     return(
         <Modal show={active}>
-            <CloseButton onClick={toggle} />
+            <CloseButton onClick={close} />
             <Modal.Header>
                 <Modal.Title>Edit {game.name}</Modal.Title>
             </Modal.Header>
@@ -50,11 +59,13 @@ const GameEditPopup = ({active, toggle}:PopupProps):JSX.Element => {
                 <Modal.Body>
                     <Form.Group controlId="name">
                         <Form.Label>Game Name</Form.Label>
-                        <Form.Control as="input" name="name" value={gameName} onChange={handleChange} />
+                        <CharError active={alert}>
+                            <Form.Control as="input" name="name" value={gameName} onChange={handleChange} required/>
+                        </CharError>
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={toggle}>Cancel</Button>
+                    <Button variant="secondary" onClick={close}>Cancel</Button>
                     <Button variant="primary" type="submit">Change</Button>
                 </Modal.Footer>
             </Form>

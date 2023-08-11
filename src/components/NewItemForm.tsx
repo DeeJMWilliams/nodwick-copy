@@ -12,16 +12,12 @@ import { selectLocation } from '../slices/locationSlice';
 import {selectGame} from '../slices/gameSlice.tsx';
 //Methods
 import {addNewItem} from '../methods.tsx';
-import { updateOnLength } from '../helpers.tsx';
-//Components
-import CharError from './CharError.tsx';
 
 const NewItemForm = ({active, toggle}) => {
     const dispatch = useDispatch();
     const location = useSelector(selectLocation);
     const game = useSelector(selectGame);
     const [itemData, setItemData] = useState({name:'', type:''});
-    const [alert, setAlert] = useState({name: false, type: false});
 
     const handleSubmit = (event:React.FormEvent) => {
         event.preventDefault();
@@ -43,12 +39,8 @@ const NewItemForm = ({active, toggle}) => {
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         if (event.target) {
             const {target} = event;
-            updateOnLength(
-                target,
-                (val) => setItemData({...itemData, [target.name]: val}),
-                (bool) => setAlert({...alert, [target.name]: bool})
-            );
-        }
+            setItemData({...itemData, [target.name]: target.value});
+        }   
     }
 
     const close = () => {
@@ -65,16 +57,18 @@ const NewItemForm = ({active, toggle}) => {
                 <Form onSubmit={handleSubmit}>
                 <Modal.Body>
                     <Form.Group controlId="name">
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
                         <Form.Label>Item Name</Form.Label>
-                        <CharError active={alert.name}>
-                            <Form.Control as="input" name="name" placeholder="+1 Sword" value={itemData.name} onChange={handleChange} />
-                        </CharError>
+                        <Form.Text>Chars left: {40 - itemData.name.length}</Form.Text>
+                        </div>
+                        <Form.Control as="input" name="name" placeholder="+1 Sword" value={itemData.name} onChange={handleChange} required maxLength={40}/>
                     </Form.Group>
                     <Form.Group controlId="type">
+                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
                         <Form.Label>Item Type</Form.Label>
-                        <CharError active={alert.type}>
-                            <Form.Control as="input" name="type" placeholder="Weapon" value={itemData.type} onChange={handleChange}/>
-                        </CharError>
+                        <Form.Text>Chars left: {20 - itemData.type.length}</Form.Text>
+                        </div>
+                        <Form.Control as="input" name="type" placeholder="Weapon" value={itemData.type} onChange={handleChange} required maxLength={20}/>
                     </Form.Group>
             </Modal.Body>
             <Modal.Footer>
