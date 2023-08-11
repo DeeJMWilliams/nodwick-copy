@@ -6,12 +6,15 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addGame as addNewGame} from '../slices/allGameSlice.tsx';
 //Methods
 import { addUserToGame, addGame } from '../methods.tsx';
+import { updateOnLength } from '../helpers.tsx';
 //Types
 import {Game} from '../types.tsx';
 //Bootstrap
 import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+//Components
+import CharError from './CharError.tsx';
 
 type GameFormProps = {
     active: boolean;
@@ -22,11 +25,12 @@ const NewGameForm = ({active, toggle}: GameFormProps): JSX.Element => {
     const dispatch = useDispatch();
     const [gameName, setGameName] = useState('');
     const user = useSelector(selectUser);
+    const [alert, setAlert] = useState(false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>):void => {
         if (event.target) {
             const {target} = event;
-            setGameName(target.value);
+            updateOnLength(target, setGameName, setAlert);
         }
     } 
 
@@ -56,6 +60,11 @@ const NewGameForm = ({active, toggle}: GameFormProps): JSX.Element => {
         
     }
 
+    const close = () => {
+        setGameName('');
+        toggle();
+    }
+
     if (!active) return <React.Fragment></React.Fragment>;
 
     return(
@@ -63,11 +72,13 @@ const NewGameForm = ({active, toggle}: GameFormProps): JSX.Element => {
             <Form onSubmit={submitNewGame}>
                 <Form.Group className='nameField'>
                     <Form.Label>Name</Form.Label>
+                    <CharError active={alert}>
                     <Form.Control as="input" name='name' id='name' placeholder='My new game' value={gameName} onChange={handleChange}/>
+                    </CharError>
                 </Form.Group>
                 <span style={{display: 'flex', justifyContent: 'right', gap: '3px'}}>
                     <Button type='submit' variant='primary'>Create</Button>
-                    <Button variant='secondary' onClick={toggle}>Cancel</Button>
+                    <Button variant='secondary' onClick={close}>Cancel</Button>
                 </span>
             </Form>
         </ListGroup.Item>

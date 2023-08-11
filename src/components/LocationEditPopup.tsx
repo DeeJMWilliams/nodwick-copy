@@ -1,5 +1,5 @@
 //React
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 //Bootstrap
 import Modal from 'react-bootstrap/Modal';
 import CloseButton from 'react-bootstrap/CloseButton';
@@ -20,9 +20,13 @@ type PopupProps = {
 }
 
 const LocationEditPopup = ({active, toggle}:PopupProps):JSX.Element => {
-        const dispatch = useDispatch();
-        const location:Location = useSelector(selectLocation);
-        const [locationName, setLocationName] = useState(location.name);
+    const dispatch = useDispatch();
+    const location:Location = useSelector(selectLocation);
+    const [locationName, setLocationName] = useState(location.name);
+
+    useEffect(() => {
+        setLocationName(location.name);
+    }, [location]);
 
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         if (event.target) {

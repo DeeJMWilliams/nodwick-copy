@@ -12,6 +12,7 @@ import { selectLocation } from '../slices/locationSlice';
 import {selectGame} from '../slices/gameSlice.tsx';
 //Methods
 import {addNewItem} from '../methods.tsx';
+import { updateOnLength } from '../helpers.tsx';
 //Components
 import CharError from './CharError.tsx';
 
@@ -31,8 +32,9 @@ const NewItemForm = ({active, toggle}) => {
             }).catch(e => console.log(e));
         } else {
             addNewItem(itemData, game.gid).then(response => {
-                //!!! fix: handle differently if no active location
+                if (location.lid) {
                 dispatch(addLocationItem(response.data));
+                }
             }).catch(e => console.log(e));
     }
     setItemData({name:'',type:''});
@@ -41,19 +43,22 @@ const NewItemForm = ({active, toggle}) => {
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         if (event.target) {
             const {target} = event;
-            if (target.value.length < 30) {
-            setItemData({...itemData, [target.name]: target.value})
-            } else {
-                setItemData({...itemData, [target.name]: target.value.slice(0,30)});
-                setAlert({...alert, [target.name]: true});
-                setTimeout(() => setAlert({...alert, [target.name]: false}), 3000);
-            }
+            updateOnLength(
+                target,
+                (val) => setItemData({...itemData, [target.name]: val}),
+                (bool) => setAlert({...alert, [target.name]: bool})
+            );
         }
+    }
+
+    const close = () => {
+        setItemData({name:'', type:''});
+        toggle();
     }
 
     return(
         <Modal show={active}>
-            <CloseButton onClick={toggle} />
+            <CloseButton onClick={close} />
             <Modal.Header>
                 <Modal.Title>Create New Item {location.name ? `for ${location.name}` : ''}</Modal.Title>
             </Modal.Header>
@@ -73,7 +78,7 @@ const NewItemForm = ({active, toggle}) => {
                     </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={toggle} variant="secondary">Close</Button>
+                <Button onClick={close} variant="secondary">Close</Button>
                 <Button as="input" type="submit" value="Create" onClick={toggle}/>
             </Modal.Footer>
             </Form>

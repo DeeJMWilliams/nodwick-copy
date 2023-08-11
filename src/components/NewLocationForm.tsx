@@ -11,6 +11,7 @@ import {selectGame} from '../slices/gameSlice.tsx';
 import { addLocation } from '../slices/allLocationSlice.tsx';
 //Methods
 import { addNewLocation } from '../methods.tsx';
+import { updateOnLength } from '../helpers.tsx';
 //Components
 import CharError from './CharError.tsx';
 
@@ -34,19 +35,18 @@ const NewLocationForm = ({category, active, toggle}) => {
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         if (event.target) {
             const {target} = event;
-            if (target.value.length < 30) {setLocationName(target.value);}
-            else {
-                setLocationName(target.value.slice(0,30));
-                setAlert(true);
-                setTimeout(() => setAlert(false), 3000);
-            }
-            
+            updateOnLength(target, setLocationName, setAlert);
         }
     };
 
+    const close = () => {
+        setLocationName('');
+        toggle();
+    }
+
     return(
         <Modal show={active}>
-            <CloseButton onClick={toggle}/>
+            <CloseButton onClick={close}/>
             <Modal.Header>
                 <Modal.Title>New {category}</Modal.Title>
             </Modal.Header>
@@ -60,7 +60,7 @@ const NewLocationForm = ({category, active, toggle}) => {
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={toggle}>Cancel</Button>
+                    <Button variant="secondary" onClick={close}>Cancel</Button>
                     <Button variant="primary" type="submit">Submit</Button>
                 </Modal.Footer>
             </Form>
