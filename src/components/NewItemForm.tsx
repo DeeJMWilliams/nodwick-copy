@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/Form';
 import { useSelector, useDispatch } from 'react-redux';
 import { addLocationItem } from '../slices/locationItemSlice';
 import { selectLocation } from '../slices/locationSlice';
+import { editLocation } from '../slices/allLocationSlice.tsx';
 import { selectGame } from '../slices/gameSlice.tsx';
 //Methods
 import { addNewItem } from '../methods.tsx';
@@ -25,6 +26,7 @@ const NewItemForm = ({ active, toggle }) => {
       addNewItem(itemData, game.gid, location.lid)
         .then((response) => {
           dispatch(addLocationItem(response.data));
+          dispatch(editLocation({...location, item_ids: [...location.item_ids, response.data.iid]}));
         })
         .catch((e) => console.log(e));
     } else {
@@ -32,6 +34,7 @@ const NewItemForm = ({ active, toggle }) => {
         .then((response) => {
           if (location.lid) {
             dispatch(addLocationItem(response.data));
+            dispatch(editLocation({...location, item_ids: [...location.item_ids, response.data.iid]}));
           }
         })
         .catch((e) => console.log(e));

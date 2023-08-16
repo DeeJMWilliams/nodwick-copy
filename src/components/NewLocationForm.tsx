@@ -11,15 +11,11 @@ import { selectGame } from '../slices/gameSlice.tsx';
 import { addLocation } from '../slices/allLocationSlice.tsx';
 //Methods
 import { addNewLocation } from '../methods.tsx';
-import { updateOnLength } from '../helpers.tsx';
-//Components
-import CharError from './CharError.tsx';
 
 const NewLocationForm = ({ category, active, toggle }) => {
   const dispatch = useDispatch();
   const [locationName, setLocationName] = useState('');
   const game = useSelector(selectGame);
-  const [alert, setAlert] = useState(false);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -38,7 +34,7 @@ const NewLocationForm = ({ category, active, toggle }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target) {
       const { target } = event;
-      updateOnLength(target, setLocationName, setAlert);
+      setLocationName(target.value);
     }
   };
 
@@ -56,17 +52,21 @@ const NewLocationForm = ({ category, active, toggle }) => {
       <Form onSubmit={handleSubmit}>
         <Modal.Body>
           <Form.Group controlId='name'>
-            <Form.Label>Name</Form.Label>
-            <CharError active={alert}>
-              <Form.Control
-                as='input'
-                name='name'
-                placeholder='Name'
-                onChange={handleChange}
-                value={locationName}
-                required
-              />
-            </CharError>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Form.Label>Name</Form.Label>
+              <Form.Text className='text-muted'>
+                Chars left: {30 - locationName.length}
+              </Form.Text>
+            </div>
+            <Form.Control
+              as='input'
+              name='name'
+              placeholder='Name'
+              onChange={handleChange}
+              value={locationName}
+              maxLength={30}
+              required
+            />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

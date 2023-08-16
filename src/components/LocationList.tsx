@@ -122,7 +122,10 @@ const LocationList = ({ type }: locationProps): JSX.Element => {
           onClick={() => dispatch(setLocation(location))}
           className={`location__entry ${selected ? 'active' : ''}`}
           variant={location.lid === destination.lid ? 'primary' : ''}>
-          <span className='location__text'>{location.name}</span>
+          <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', gap: '10px'}}>
+            <span className='location__text'>{location.name}</span>
+            <Badge bg='info'>{location.item_ids.length}</Badge>
+          </div>
           {location.name !== 'Unassigned' ? (
             <div className='badges'>
               <Badge bg='secondary' onClick={() => startEdit(location)}>

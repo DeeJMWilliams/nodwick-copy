@@ -11,8 +11,9 @@ import { deleteGame } from '../methods.tsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectGame, resetGame } from '../slices/gameSlice.tsx';
 import { removeGame } from '../slices/allGameSlice.tsx';
+import { selectUser, changeUser } from '../slices/userSlice.tsx';
 //Types
-import { Game } from '../types.tsx';
+import { Game, User } from '../types.tsx';
 
 type PopupProps = {
   active: boolean;
@@ -22,6 +23,7 @@ type PopupProps = {
 const GameDeletePopup = ({ active, toggle }: PopupProps): JSX.Element => {
   const dispatch = useDispatch();
   const game: Game = useSelector(selectGame);
+  const user: User = useSelector(selectUser);
   const [gameName, setGameName] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +41,12 @@ const GameDeletePopup = ({ active, toggle }: PopupProps): JSX.Element => {
       deleteGame(game_id)
         .then(() => {
           dispatch(removeGame(game_id));
+          dispatch(
+            changeUser({
+              ...user,
+              game_ids: user.game_ids.filter((id) => id !== game_id),
+            }),
+          );
         })
         .catch((e) => console.log(e));
     } else {

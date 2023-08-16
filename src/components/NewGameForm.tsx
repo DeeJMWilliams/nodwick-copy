@@ -1,7 +1,7 @@
 //React
 import React, { useState } from 'react';
 //Redux
-import { selectUser } from '../slices/userSlice.tsx';
+import { selectUser, changeUser } from '../slices/userSlice.tsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { addGame as addNewGame } from '../slices/allGameSlice.tsx';
 //Methods
@@ -37,6 +37,9 @@ const NewGameForm = ({ active, toggle }: GameFormProps): JSX.Element => {
         const game_id: string = response.data.gid;
         const user_id: string = user.uid;
         addUserToGame(game_id, user_id);
+        dispatch(
+          changeUser({ ...user, game_ids: [...user.game_ids, game_id] }),
+        );
         const newGame: Game = { ...response.data, user_ids: [user_id] };
         dispatch(addNewGame(newGame));
       })

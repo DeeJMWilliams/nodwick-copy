@@ -28,7 +28,7 @@ const GameList = (): JSX.Element => {
     );
   };
 
-  ///!!!Add sorting by datetime by default
+  ///!!!Add sorting by alpha(?) by default
   return (
     <ListGroup>
       {games.map((game: Game): JSX.Element => {

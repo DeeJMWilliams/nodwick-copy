@@ -13,9 +13,6 @@ import { editLocation } from '../slices/allLocationSlice.tsx';
 import { Location } from '../types.tsx';
 //Methods
 import { renameLocation } from '../methods.tsx';
-import { updateOnLength } from '../helpers.tsx';
-//Components
-import CharError from './CharError.tsx';
 
 type PopupProps = {
   active: boolean;
@@ -26,7 +23,6 @@ const LocationEditPopup = ({ active, toggle }: PopupProps): JSX.Element => {
   const dispatch = useDispatch();
   const location: Location = useSelector(selectLocation);
   const [locationName, setLocationName] = useState(location.name);
-  const [alert, setAlert] = useState(false);
 
   useEffect(() => {
     setLocationName(location.name);
@@ -35,7 +31,7 @@ const LocationEditPopup = ({ active, toggle }: PopupProps): JSX.Element => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target) {
       const { target } = event;
-      updateOnLength(target, setLocationName, setAlert);
+      setLocationName(target.value);
     }
   };
 
@@ -63,18 +59,20 @@ const LocationEditPopup = ({ active, toggle }: PopupProps): JSX.Element => {
       <Form onSubmit={handleSubmit}>
         <Modal.Body>
           <Form.Group controlId='name'>
-            <Form.Label>
-              {location.type === 'location' ? 'Location' : 'Character'} Name
-            </Form.Label>
-            <CharError active={alert}>
-              <Form.Control
-                as='input'
-                name='name'
-                value={locationName}
-                onChange={handleChange}
-                required
-              />
-            </CharError>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Form.Label>{location.type === 'location' ? 'Location' : 'Character'} Name</Form.Label>
+              <Form.Text className='text-muted'>
+                Chars left: {30 - locationName.length}
+              </Form.Text>
+            </div>
+            <Form.Control
+              as='input'
+              name='name'
+              value={locationName}
+              onChange={handleChange}
+              maxLength={30}
+              required
+            />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

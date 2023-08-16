@@ -11,9 +11,6 @@ import { selectGame, setGame } from '../slices/gameSlice.tsx';
 import { updateGame } from '../slices/allGameSlice.tsx';
 //Methods
 import { renameGame } from '../methods.tsx';
-import { updateOnLength } from '../helpers.tsx';
-//Components
-import CharError from './CharError.tsx';
 
 type PopupProps = {
   active: boolean;
@@ -24,12 +21,11 @@ const GameEditPopup = ({ active, toggle }: PopupProps): JSX.Element => {
   const dispatch = useDispatch();
   const game = useSelector(selectGame);
   const [gameName, setGameName] = useState(game.name);
-  const [alert, setAlert] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target) {
       const { target } = event;
-      updateOnLength(target, setGameName, setAlert);
+      setGameName(target.value);
     }
   };
 
@@ -58,16 +54,20 @@ const GameEditPopup = ({ active, toggle }: PopupProps): JSX.Element => {
       <Form onSubmit={handleSubmit}>
         <Modal.Body>
           <Form.Group controlId='name'>
-            <Form.Label>Game Name</Form.Label>
-            <CharError active={alert}>
-              <Form.Control
-                as='input'
-                name='name'
-                value={gameName}
-                onChange={handleChange}
-                required
-              />
-            </CharError>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Form.Label>Game Name</Form.Label>
+              <Form.Text className='text-muted'>
+                Chars left: {40 - gameName.length}
+              </Form.Text>
+            </div>
+            <Form.Control
+              as='input'
+              name='name'
+              value={gameName}
+              onChange={handleChange}
+              maxLength={40}
+              required
+            />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

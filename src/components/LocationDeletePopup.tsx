@@ -4,8 +4,8 @@ import CloseButton from 'react-bootstrap/CloseButton';
 import Button from 'react-bootstrap/Button';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { selectLocation } from '../slices/locationSlice';
-import { removeLocation } from '../slices/allLocationSlice.tsx';
+import { selectLocation, resetLocation } from '../slices/locationSlice';
+import { removeLocation, selectLocations, editLocation } from '../slices/allLocationSlice.tsx';
 //Types
 import { Location } from '../types.tsx';
 //Methods
@@ -18,6 +18,7 @@ type PopupProps = {
 
 const LocationDeletePopup = ({ active, toggle }: PopupProps): JSX.Element => {
   const location: Location = useSelector(selectLocation);
+  const locations: Location[] = useSelector(selectLocations);
   const dispatch = useDispatch();
   const show = active;
 
@@ -25,7 +26,10 @@ const LocationDeletePopup = ({ active, toggle }: PopupProps): JSX.Element => {
     deleteLocation(location.gid, location.lid)
       .then(() => {
         toggle();
+        const unassigned = locations.find(loc => loc.name == 'Unassigned');
+        dispatch(editLocation({...unassigned, item_ids: unassigned.item_ids.concat(location.item_ids)}));
         dispatch(removeLocation(location.lid));
+        dispatch(resetLocation());
       })
       .catch((e) => console.log(e));
   };
