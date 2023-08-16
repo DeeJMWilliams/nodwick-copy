@@ -4,8 +4,10 @@ import App from './App.tsx';
 import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
-import { store } from './store.tsx';
+import { persistor, store } from './store.tsx';
 import {Auth0Provider} from '@auth0/auth0-react';
+import {PersistGate} from 'redux-persist/lib/integration/react';
+import Callback from './pages/Callback.tsx';
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
@@ -40,7 +42,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Router>
       <Provider store={store}>
-        <Auth0ProviderWithCallback />
+        <PersistGate loading={<Callback />} persistor={persistor}>
+          <Auth0ProviderWithCallback />
+        </PersistGate>
       </Provider>
     </Router>
   </React.StrictMode>
