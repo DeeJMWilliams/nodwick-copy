@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = 'https://nodwick-5197d7051295.herokuapp.com/';
+const URL = 'https://nodwick.app';
 
 //Users
 
