@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import { BrowserRouter as Router, useNavigate } from 'react-router-dom';
@@ -20,7 +20,7 @@ const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
   crossorigin='anonymous'
 />;
 
-const Auth0ProviderWithCallback = () => {
+const Auth0ProviderWithCallback = ({children}) => {
   const navigate = useNavigate();
   const onRedirectCallback = (appState) => {
     navigate((appState && appState.returnTo) || '/callback');
@@ -35,7 +35,7 @@ const Auth0ProviderWithCallback = () => {
     useRefreshToken: true,
   }
 
-  return <Auth0Provider {...providerConfig}><App /></Auth0Provider>
+  return <Auth0Provider {...providerConfig}>{children}</Auth0Provider>
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -43,7 +43,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Router>
       <Provider store={store}>
         <PersistGate loading={<Callback />} persistor={persistor}>
-          <Auth0ProviderWithCallback />
+          <Auth0ProviderWithCallback>
+            <App />
+          </Auth0ProviderWithCallback>
         </PersistGate>
       </Provider>
     </Router>
