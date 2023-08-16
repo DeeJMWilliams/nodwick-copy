@@ -1,6 +1,6 @@
 {
   "name": "nodwick-copy",
-  "homepage": "https://nodwick.app/",
+  "homepage": "https://nodwick.app",
   "version": "0.1.0",
   "private": true,
   "editor.formatOnSave": true,

@@ -23,7 +23,7 @@ const Login = (): JSX.Element => {
 
   const LogoutButton = (): JSX.Element => {
     return isAuthenticated ? (
-      <Button onClick={() => logout()}>Log Out</Button>
+      <Button onClick={() => logout({logoutParams: {returnTo: window.location.origin}})}>Log Out</Button>
     ) : (
       <></>
     );
