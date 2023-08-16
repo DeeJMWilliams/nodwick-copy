@@ -62,7 +62,8 @@ const ItemList = () => {
     <React.Fragment>
       <ItemPreview active={activeItem.iid !== ''} />
       <NewItemForm active={newItem} toggle={() => setNewItem(!newItem)} />
-      <h2 style={{ display: 'inline' }}>Items{'   '}</h2>
+      <span className='section__header'>
+      <h2 >Items{'   '}</h2>
       <Button
         variant='secondary'
         size='sm'
@@ -70,6 +71,7 @@ const ItemList = () => {
         onClick={() => setNewItem(true)}>
         New Item
       </Button>
+      </span>
       <ListGroup>
         {items.length >= 1 ? (
           [...items].sort(compare).map((item: Item) => {

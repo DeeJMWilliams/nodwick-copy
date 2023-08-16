@@ -71,6 +71,7 @@ const ItemPreview = ({ active }) => {
       .then(() => {
         closePreview();
         dispatch(removeItem(item.iid));
+        dispatch(editLocation({...location, item_ids: location.item_ids.filter(id => id !== item.iid)}));
         dispatch(resetItem());
       })
       .catch((e) => console.log(e));

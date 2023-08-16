@@ -6,27 +6,32 @@
     display: inline;
 }
 
-.body {
+.games__grid {
     display: grid;
-    padding: 30px;
-    grid-template: 1fr / 1fr 1fr;
+    grid-template: 10% 90% / 1fr 20fr 2fr 20fr 1fr;
 }
 
-.body__right form {
+.games__right form {
     padding: 10px;
 }
 
-ul {
-    list-style: none;
+.games__right button {
+    margin-bottom: 0.5rem;
 }
 
-li {
-    margin: 2px;
-    padding: 2px;
-    max-width: 90%;
-    background-color: gray;
+.games__body {
+    grid-area: 2 / 1 / 2 / 6;
+    display: grid;
+    padding-top: 2rem;
+    grid-template: 1fr / 1fr 20fr 2fr 20fr 1fr;
 }
 
-.activeItem {
-    background-color: lightskyblue;
+.games__left {
+    grid-column: 2 / 2;
 }
+
+.games__right {
+    grid-column: 4 / 4;
+}
+
+

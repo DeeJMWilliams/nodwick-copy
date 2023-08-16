@@ -32,7 +32,7 @@ const Header = ({ buttons, title }: headerProps) => {
   return (
     <React.Fragment>
       <About active={about} toggle={() => setAbout(!about)} />
-      <Navbar>
+      <Navbar className='page__header'>
         <Navbar.Brand className='pageTitle'>Nodwick</Navbar.Brand>
         <Nav>
           <Nav.Link onClick={() => setAbout(!about)}>About</Nav.Link>

@@ -43,28 +43,24 @@ const Games = (): JSX.Element => {
   };
 
   return (
-    <React.Fragment>
+    <div className='games__grid'>
       <Header
         buttons={headerButtons}
         title={() => {
           return <React.Fragment></React.Fragment>;
         }}
       />
-      <div className='body'>
-        <div className='body__left'>
-          <div className='buttonContainer'>
-            <Button variant='secondary' onClick={() => setNewGame(!newGame)}>
-              + New Game
-            </Button>
-          </div>
+      <div className='games__body'>
+        <div className='games__left'>
           <GameList />
         </div>
-        <ListGroup className='body__right'>
-          <NewGameForm active={newGame} toggle={() => setNewGame(false)} />
+        <ListGroup className='games__right'>
+          {!newGame ? <Button onClick={() => setNewGame(true)} variant='secondary'>New Game</Button> : <></>}
+          <NewGameForm active={newGame} toggle={() => setNewGame(false)}/>
           <GamePreview />
         </ListGroup>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 

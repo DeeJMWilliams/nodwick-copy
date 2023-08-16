@@ -97,7 +97,7 @@ const Inventory = () => {
   };
 
   return (
-    <div>
+    <div className='inventory__grid'>
       <GameDeletePopup
         active={deletingGame}
         toggle={() => setDeletingGame(false)}
@@ -115,12 +115,11 @@ const Inventory = () => {
         category={addingLocation}
         toggle={() => setAddingLocation('')}
       />
-      <Header buttons={headerButtons} title={headerTitle} />
-      <div className='body'>
-        <div className='body__left'>
-          <span className='character__header'>
+      <Header buttons={headerButtons} title={headerTitle}/>
+      <div className='inventory__body'>
+        <div className='inventory__left'>
+          <span className='section__header'>
             <h2>Characters</h2>
-            {'   '}
             <Button
               size='sm'
               variant='secondary'
@@ -129,9 +128,8 @@ const Inventory = () => {
             </Button>
           </span>
           <LocationList type='character' />
-          <span className='location__header'>
+          <span className='section__header'>
             <h2>Locations</h2>
-            {'   '}
             <Button
               size='sm'
               variant='secondary'
@@ -141,7 +139,7 @@ const Inventory = () => {
           </span>
           <LocationList type='location' />
         </div>
-        <div className='body__right'>
+        <div className='inventory__right'>
           <ItemList />
         </div>
       </div>

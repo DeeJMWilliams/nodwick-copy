@@ -11,3 +11,7 @@
 ::placeholder {
   color: #aaa !important;
 }
+
+.page__header {
+  grid-area: 1 / 2 / 1 / 5;
+}

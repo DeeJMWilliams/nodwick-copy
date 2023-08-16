@@ -171,7 +171,7 @@ const LocationList = ({ type }: locationProps): JSX.Element => {
         active={deleting}
         toggle={() => setDeleting(false)}
       />
-      <ListGroup>
+      <ListGroup className='location__list'>
         {locationsOfType.length >= 1 ? (
           reduceLocs(locationsOfType.sort(compare)).map(
             (location: Location) => {
