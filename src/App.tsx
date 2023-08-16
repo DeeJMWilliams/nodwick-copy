@@ -35,6 +35,7 @@ const App = (): JSX.Element => {
   }, [activeUser, navigate]);
 
   //Move to inventory page on set of active game or games page on removal of active game
+  //!!!Add persistent state to active game and remove contingency
   useEffect(() => {
     if (activeGame.gid && activeUser.uid) {
       navigate('/inventory');

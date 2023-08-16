@@ -40,6 +40,7 @@ const NewItemForm = ({ active, toggle }) => {
         .catch((e) => console.log(e));
     }
     setItemData({ name: '', type: '' });
+    close();
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +100,7 @@ const NewItemForm = ({ active, toggle }) => {
           <Button onClick={close} variant='secondary'>
             Close
           </Button>
-          <Button as='input' type='submit' value='Create' onClick={toggle} />
+          <Button as='input' type='submit' value='Create'/>
         </Modal.Footer>
       </Form>
     </Modal>
