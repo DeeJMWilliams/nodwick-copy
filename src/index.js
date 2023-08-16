@@ -30,7 +30,7 @@ const Auth0ProviderWithCallback = ({children}) => {
     domain: domain,
     clientId: clientId,
     onRedirectCallback,
-    authorizationParams: {redirect_uri: `${window.location.origin}/callback`, ...(audience ? { audience: audience } : null)},
+    authorizationParams: {redirect_uri: window.location.origin, ...(audience ? { audience: audience } : null)},
     cacheLocation: 'localstorage',
     useRefreshToken: true,
   }
