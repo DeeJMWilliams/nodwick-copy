@@ -1,5 +1,3 @@
-//React
-import React from 'react';
 //Types
 import { Game } from '../types.tsx';
 //Redux
@@ -8,6 +6,8 @@ import { selectPreviewGame, changeGame } from '../slices/gamePreviewSlice.tsx';
 import { useSelector, useDispatch } from 'react-redux';
 //Bootstrap
 import ListGroup from 'react-bootstrap/ListGroup';
+//Methods
+import { compare } from '../helpers.tsx';
 
 const GameList = (): JSX.Element => {
   const games: Game[] = useSelector(selectGames);
@@ -28,10 +28,9 @@ const GameList = (): JSX.Element => {
     );
   };
 
-  ///!!!Add sorting by alpha(?) by default
   return (
     <ListGroup>
-      {games.map((game: Game): JSX.Element => {
+      {([...games]).sort(compare).map((game: Game): JSX.Element => {
         return <GameListItem game={game} key={game.gid} />;
       })}
     </ListGroup>

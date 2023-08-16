@@ -19,10 +19,20 @@ import LocationDeletePopup from './LocationDeletePopup.tsx';
 import LocationEditPopup from './LocationEditPopup.tsx';
 //Methods
 import { moveItem, getLocation } from '../methods.tsx';
+import { compare } from '../helpers.tsx';
 
 type locationProps = {
   type: string;
 };
+
+const reduceLocs = (arr:Array<any>) => {
+  return arr.reduce((acc, element) => {
+    if (element.name === 'Unassigned') {
+      return [element, ...acc];
+    }
+    return [...acc, element]
+  }, [])
+}
 
 const LocationList = ({ type }: locationProps): JSX.Element => {
   const dispatch = useDispatch();
@@ -117,6 +127,7 @@ const LocationList = ({ type }: locationProps): JSX.Element => {
         onDragOver={(e) => handleDragOver(e, location)}
         onDragLeave={(e) => handleDragLeave(e, location)}
         onDrop={() => handleDrop(location)}
+        style={{borderRadius: '0.375rem'}}
         key={location.lid}>
         <ListGroup.Item
           onClick={() => dispatch(setLocation(location))}
@@ -156,7 +167,7 @@ const LocationList = ({ type }: locationProps): JSX.Element => {
       />
       <ListGroup>
         {locationsOfType.length >= 1 ? (
-          locationsOfType.map((location: Location) => {
+          reduceLocs(locationsOfType.sort(compare)).map((location: Location) => {
             return <LocationListItem location={location} key={location.lid} />;
           })
         ) : (
