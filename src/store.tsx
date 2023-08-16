@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {combineReducers} from 'redux';
-import {persistStore, persistReducer} from 'redux-persist';
+import { combineReducers } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
@@ -15,27 +15,25 @@ import locationItemReducer from './slices/locationItemSlice.tsx';
 import itemReducer from './slices/itemSlice.tsx';
 import dragReducer from './slices/dragSlice.tsx';
 
-const rootReducer = combineReducers(
-  {
-    activeUser: userReducer,
-    previewGame: previewGameReducer,
-    allGames: allGamesReducer,
-    activeGame: gameReducer,
-    allLocations: allLocationsReducer,
-    activeLocation: locationReducer,
-    locationItems: locationItemReducer,
-    activeItem: itemReducer,
-    draggedItem: dragReducer,
-  }
-)
+const rootReducer = combineReducers({
+  activeUser: userReducer,
+  previewGame: previewGameReducer,
+  allGames: allGamesReducer,
+  activeGame: gameReducer,
+  allLocations: allLocationsReducer,
+  activeLocation: locationReducer,
+  locationItems: locationItemReducer,
+  activeItem: itemReducer,
+  draggedItem: dragReducer,
+});
 
 const persistConfig = {
   key: 'root',
   storage: storage,
-  stateReconciler: autoMergeLevel2
-}
+  stateReconciler: autoMergeLevel2,
+};
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = configureStore({reducer: persistedReducer});
+export const store = configureStore({ reducer: persistedReducer });
 export const persistor = persistStore(store);

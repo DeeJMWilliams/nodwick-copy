@@ -15,7 +15,7 @@ import { setItem, selectItem } from '../slices/itemSlice.tsx';
 import { setDraggedItem } from '../slices/dragSlice.tsx';
 //Methods
 import { getLocationItems } from '../methods.tsx';
-import {compare} from '../helpers.tsx';
+import { compare } from '../helpers.tsx';
 //Components
 import NewItemForm from './NewItemForm.tsx';
 import ItemPreview from './ItemPreview.tsx';
@@ -72,12 +72,12 @@ const ItemList = () => {
       </Button>
       <ListGroup>
         {items.length >= 1 ? (
-          ([...items]).sort(compare).map((item: Item) => {
+          [...items].sort(compare).map((item: Item) => {
             return (
               <div
                 draggable
                 className='draggable'
-                style={{borderRadius: '0.375rem'}}
+                style={{ borderRadius: '0.375rem' }}
                 onDragStart={() => handleDragStart(item)}
                 key={item.iid}>
                 <ItemListItem item={item} />

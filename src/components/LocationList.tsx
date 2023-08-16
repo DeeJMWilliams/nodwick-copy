@@ -25,14 +25,14 @@ type locationProps = {
   type: string;
 };
 
-const reduceLocs = (arr:Array<any>) => {
+const reduceLocs = (arr: Location[]) => {
   return arr.reduce((acc, element) => {
     if (element.name === 'Unassigned') {
       return [element, ...acc];
     }
-    return [...acc, element]
-  }, [])
-}
+    return [...acc, element];
+  }, []);
+};
 
 const LocationList = ({ type }: locationProps): JSX.Element => {
   const dispatch = useDispatch();
@@ -127,13 +127,19 @@ const LocationList = ({ type }: locationProps): JSX.Element => {
         onDragOver={(e) => handleDragOver(e, location)}
         onDragLeave={(e) => handleDragLeave(e, location)}
         onDrop={() => handleDrop(location)}
-        style={{borderRadius: '0.375rem'}}
+        style={{ borderRadius: '0.375rem' }}
         key={location.lid}>
         <ListGroup.Item
           onClick={() => dispatch(setLocation(location))}
           className={`location__entry ${selected ? 'active' : ''}`}
           variant={location.lid === destination.lid ? 'primary' : ''}>
-          <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', gap: '10px'}}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'left',
+              alignItems: 'center',
+              gap: '10px',
+            }}>
             <span className='location__text'>{location.name}</span>
             <Badge bg='info'>{location.item_ids.length}</Badge>
           </div>
@@ -167,9 +173,13 @@ const LocationList = ({ type }: locationProps): JSX.Element => {
       />
       <ListGroup>
         {locationsOfType.length >= 1 ? (
-          reduceLocs(locationsOfType.sort(compare)).map((location: Location) => {
-            return <LocationListItem location={location} key={location.lid} />;
-          })
+          reduceLocs(locationsOfType.sort(compare)).map(
+            (location: Location) => {
+              return (
+                <LocationListItem location={location} key={location.lid} />
+              );
+            },
+          )
         ) : (
           <ListGroup.Item>No entries yet!</ListGroup.Item>
         )}

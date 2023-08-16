@@ -30,7 +30,7 @@ const GameList = (): JSX.Element => {
 
   return (
     <ListGroup>
-      {([...games]).sort(compare).map((game: Game): JSX.Element => {
+      {[...games].sort(compare).map((game: Game): JSX.Element => {
         return <GameListItem game={game} key={game.gid} />;
       })}
     </ListGroup>

@@ -26,7 +26,12 @@ const NewItemForm = ({ active, toggle }) => {
       addNewItem(itemData, game.gid, location.lid)
         .then((response) => {
           dispatch(addLocationItem(response.data));
-          dispatch(editLocation({...location, item_ids: [...location.item_ids, response.data.iid]}));
+          dispatch(
+            editLocation({
+              ...location,
+              item_ids: [...location.item_ids, response.data.iid],
+            }),
+          );
         })
         .catch((e) => console.log(e));
     } else {
@@ -34,7 +39,12 @@ const NewItemForm = ({ active, toggle }) => {
         .then((response) => {
           if (location.lid) {
             dispatch(addLocationItem(response.data));
-            dispatch(editLocation({...location, item_ids: [...location.item_ids, response.data.iid]}));
+            dispatch(
+              editLocation({
+                ...location,
+                item_ids: [...location.item_ids, response.data.iid],
+              }),
+            );
           }
         })
         .catch((e) => console.log(e));
@@ -100,7 +110,7 @@ const NewItemForm = ({ active, toggle }) => {
           <Button onClick={close} variant='secondary'>
             Close
           </Button>
-          <Button as='input' type='submit' value='Create'/>
+          <Button as='input' type='submit' value='Create' />
         </Modal.Footer>
       </Form>
     </Modal>

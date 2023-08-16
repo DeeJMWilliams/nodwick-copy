@@ -60,7 +60,9 @@ const LocationEditPopup = ({ active, toggle }: PopupProps): JSX.Element => {
         <Modal.Body>
           <Form.Group controlId='name'>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Form.Label>{location.type === 'location' ? 'Location' : 'Character'} Name</Form.Label>
+              <Form.Label>
+                {location.type === 'location' ? 'Location' : 'Character'} Name
+              </Form.Label>
               <Form.Text className='text-muted'>
                 Chars left: {30 - locationName.length}
               </Form.Text>

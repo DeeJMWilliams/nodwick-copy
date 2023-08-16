@@ -5,7 +5,11 @@ import Button from 'react-bootstrap/Button';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { selectLocation, resetLocation } from '../slices/locationSlice';
-import { removeLocation, selectLocations, editLocation } from '../slices/allLocationSlice.tsx';
+import {
+  removeLocation,
+  selectLocations,
+  editLocation,
+} from '../slices/allLocationSlice.tsx';
 //Types
 import { Location } from '../types.tsx';
 //Methods
@@ -26,8 +30,13 @@ const LocationDeletePopup = ({ active, toggle }: PopupProps): JSX.Element => {
     deleteLocation(location.gid, location.lid)
       .then(() => {
         toggle();
-        const unassigned = locations.find(loc => loc.name == 'Unassigned');
-        dispatch(editLocation({...unassigned, item_ids: unassigned.item_ids.concat(location.item_ids)}));
+        const unassigned = locations.find((loc) => loc.name == 'Unassigned');
+        dispatch(
+          editLocation({
+            ...unassigned,
+            item_ids: unassigned.item_ids.concat(location.item_ids),
+          }),
+        );
         dispatch(removeLocation(location.lid));
         dispatch(resetLocation());
       })

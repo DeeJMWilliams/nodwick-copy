@@ -52,7 +52,7 @@ const NewLocationForm = ({ category, active, toggle }) => {
       <Form onSubmit={handleSubmit}>
         <Modal.Body>
           <Form.Group controlId='name'>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <Form.Label>Name</Form.Label>
               <Form.Text className='text-muted'>
                 Chars left: {30 - locationName.length}

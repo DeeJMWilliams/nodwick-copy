@@ -201,10 +201,10 @@ const ItemPreview = ({ active }) => {
         <Form onSubmit={handleSubmit}>
           <Modal.Body>
             <Form.Group controlId='name'>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Form.Label>Item Name</Form.Label>
-              <Form.Text>Chars left: {40 - itemData.name.length}</Form.Text>
-            </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Form.Label>Item Name</Form.Label>
+                <Form.Text>Chars left: {40 - itemData.name.length}</Form.Text>
+              </div>
               <Form.Control
                 as='input'
                 name='name'
@@ -214,10 +214,10 @@ const ItemPreview = ({ active }) => {
               />
             </Form.Group>
             <Form.Group controlId='type'>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Form.Label>Item Type</Form.Label>
-              <Form.Text>Chars left: {20 - itemData.type.length}</Form.Text>
-            </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Form.Label>Item Type</Form.Label>
+                <Form.Text>Chars left: {20 - itemData.type.length}</Form.Text>
+              </div>
               <Form.Control
                 as='input'
                 name='type'
