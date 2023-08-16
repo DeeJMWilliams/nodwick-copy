@@ -30,7 +30,7 @@ const LocationDeletePopup = ({ active, toggle }: PopupProps): JSX.Element => {
     deleteLocation(location.gid, location.lid)
       .then(() => {
         toggle();
-        const unassigned = locations.find((loc) => loc.name == 'Unassigned');
+        const unassigned = locations.find((loc) => loc.name === 'Unassigned');
         dispatch(
           editLocation({
             ...unassigned,

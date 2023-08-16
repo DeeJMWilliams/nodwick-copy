@@ -25,7 +25,9 @@ const Login = (): JSX.Element => {
     return isAuthenticated ? (
       <Button
         onClick={() =>
-          logout({ logoutParams: { returnTo: window.location.origin } })
+          logout({
+            logoutParams: { returnTo: `${window.location.origin}/callback` },
+          })
         }>
         Log Out
       </Button>

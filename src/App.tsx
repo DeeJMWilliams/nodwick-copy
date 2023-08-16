@@ -53,13 +53,15 @@ const App = (): JSX.Element => {
     };
   };
 
-  const getUserData = (user) => {
+  const getUserData = (app_user) => {
     getUsers()
       .then((response) => {
-        if (!response.data.map((user) => user.uid).includes(user.sub)) {
-          createNewUser(user);
+        if (
+          !response.data.map((user: User) => user.uid).includes(app_user.sub)
+        ) {
+          createNewUser(app_user);
         } else {
-          getSingleUser(user.sub).then((response) => {
+          getSingleUser(app_user.sub).then((response) => {
             dispatch(changeUser(response.data));
           });
         }
