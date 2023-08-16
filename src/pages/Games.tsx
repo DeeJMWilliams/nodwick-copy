@@ -55,8 +55,14 @@ const Games = (): JSX.Element => {
           <GameList />
         </div>
         <ListGroup className='games__right'>
-          {!newGame ? <Button onClick={() => setNewGame(true)} variant='secondary'>New Game</Button> : <></>}
-          <NewGameForm active={newGame} toggle={() => setNewGame(false)}/>
+          {!newGame ? (
+            <Button onClick={() => setNewGame(true)} variant='secondary'>
+              New Game
+            </Button>
+          ) : (
+            <></>
+          )}
+          <NewGameForm active={newGame} toggle={() => setNewGame(false)} />
           <GamePreview />
         </ListGroup>
       </div>

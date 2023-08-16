@@ -30,9 +30,13 @@ const GameList = (): JSX.Element => {
 
   return (
     <ListGroup>
-      {games.length >= 1 ? [...games].sort(compare).map((game: Game): JSX.Element => {
-        return <GameListItem game={game} key={game.gid} />;
-      }) : <ListGroup.Item>No entries yet!</ListGroup.Item>}
+      {games.length >= 1 ? (
+        [...games].sort(compare).map((game: Game): JSX.Element => {
+          return <GameListItem game={game} key={game.gid} />;
+        })
+      ) : (
+        <ListGroup.Item>No entries yet!</ListGroup.Item>
+      )}
     </ListGroup>
   );
 };

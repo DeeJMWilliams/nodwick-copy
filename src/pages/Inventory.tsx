@@ -115,7 +115,7 @@ const Inventory = () => {
         category={addingLocation}
         toggle={() => setAddingLocation('')}
       />
-      <Header buttons={headerButtons} title={headerTitle}/>
+      <Header buttons={headerButtons} title={headerTitle} />
       <div className='inventory__body'>
         <div className='inventory__left'>
           <span className='section__header'>

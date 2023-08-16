@@ -63,14 +63,14 @@ const ItemList = () => {
       <ItemPreview active={activeItem.iid !== ''} />
       <NewItemForm active={newItem} toggle={() => setNewItem(!newItem)} />
       <span className='section__header'>
-      <h2 >Items{'   '}</h2>
-      <Button
-        variant='secondary'
-        size='sm'
-        style={{ display: 'inline' }}
-        onClick={() => setNewItem(true)}>
-        New Item
-      </Button>
+        <h2>Items{'   '}</h2>
+        <Button
+          variant='secondary'
+          size='sm'
+          style={{ display: 'inline' }}
+          onClick={() => setNewItem(true)}>
+          New Item
+        </Button>
       </span>
       <ListGroup>
         {items.length >= 1 ? (
