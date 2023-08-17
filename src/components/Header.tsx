@@ -5,9 +5,11 @@ import { selectUser, resetUser } from '../slices/userSlice.tsx';
 import { useSelector, useDispatch } from 'react-redux';
 //Components
 import About from './About.tsx';
+import UserEditPopup from './UserEditPopup.tsx';
 //Bootstrap
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 //Types
 import { User } from '../types.tsx';
 // Auth
@@ -21,6 +23,7 @@ type headerProps = {
 const Header = ({ buttons, title }: headerProps) => {
   const dispatch = useDispatch();
   const [about, setAbout] = useState(false);
+  const [options, setOptions] = useState(false);
   const user: User = useSelector(selectUser);
   const { logout } = useAuth0();
 
@@ -31,14 +34,19 @@ const Header = ({ buttons, title }: headerProps) => {
 
   return (
     <React.Fragment>
+      <UserEditPopup active={options} toggle={() => setOptions(false)} />
       <About active={about} toggle={() => setAbout(!about)} />
       <Navbar className='page__header'>
         <Navbar.Brand className='pageTitle'>Nodwick</Navbar.Brand>
         <Nav>
           <Nav.Link onClick={() => setAbout(!about)}>About</Nav.Link>
-          <Nav.Link>{user.name}</Nav.Link>
+          <NavDropdown title={user.name}>
+            <NavDropdown.Item onClick={() => setOptions(true)}>
+              Options
+            </NavDropdown.Item>
+            <NavDropdown.Item onClick={signout}>Logout</NavDropdown.Item>
+          </NavDropdown>
           {buttons()}
-          <Nav.Link onClick={signout}>Logout</Nav.Link>
         </Nav>
         {title()}
       </Navbar>

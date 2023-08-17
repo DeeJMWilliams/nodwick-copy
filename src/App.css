@@ -15,3 +15,13 @@
 .page__header {
   grid-area: 1 / 2 / 1 / 5;
 }
+
+.popup {
+  position: fixed;
+  bottom: 0;
+  right: 1rem;
+}
+
+.popup.show {
+  z-index: 10;
+}

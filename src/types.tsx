@@ -30,3 +30,8 @@ export type Item = {
   lid: string;
   [key: string]: unknown;
 };
+
+export type Popup = {
+  active: boolean;
+  toggle: () => void;
+};

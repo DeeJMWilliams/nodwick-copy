@@ -11,15 +11,12 @@ import { selectGame, setGame } from '../slices/gameSlice.tsx';
 import { updateGame } from '../slices/allGameSlice.tsx';
 //Methods
 import { renameGame } from '../methods.tsx';
+//Types
+import { Popup, Game } from '../types.tsx';
 
-type PopupProps = {
-  active: boolean;
-  toggle: () => void;
-};
-
-const GameEditPopup = ({ active, toggle }: PopupProps): JSX.Element => {
+const GameEditPopup = ({ active, toggle }: Popup): JSX.Element => {
   const dispatch = useDispatch();
-  const game = useSelector(selectGame);
+  const game: Game = useSelector(selectGame);
   const [gameName, setGameName] = useState(game.name);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

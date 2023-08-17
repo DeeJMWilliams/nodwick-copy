@@ -20,11 +20,17 @@ export const getSingleUser = (user_id: string) => {
 };
 
 export const addUserToGame = (game_id: string, user_id: string) => {
-  return axios.patch(`${URL}/users?game_id=${game_id}&user_id=${user_id}`);
+  return axios.patch(
+    `${URL}/users/games?game_id=${game_id}&user_id=${user_id}`,
+  );
 };
 
 export const addUser = (user) => {
   return axios.post(`${URL}/users`, user);
+};
+
+export const renameUser = (name: string, user_id: string) => {
+  return axios.patch(`${URL}/users?user_id=${user_id}`, { name });
 };
 
 //Games
