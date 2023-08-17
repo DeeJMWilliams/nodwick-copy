@@ -1,5 +1,6 @@
-//React
+//React & Routing
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 //Components
 import Header from '../components/Header.tsx';
 import LocationList from '../components/LocationList.tsx';
@@ -29,6 +30,7 @@ import './Inventory.css';
 
 const Inventory = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const game: Game = useSelector(selectGame);
   const games = useSelector(selectGames);
   const [addingLocation, setAddingLocation] = useState('');
@@ -45,10 +47,11 @@ const Inventory = () => {
     }
   }, [game, dispatch]);
 
-  const reset = () => {
+  const goBack = () => {
     dispatch(resetItem());
     dispatch(resetLocation());
     dispatch(resetGame());
+    navigate('/games');
   };
 
   const dropdownChangeGame = (gameOption: Game) => {
@@ -60,7 +63,7 @@ const Inventory = () => {
   const headerButtons = () => {
     return (
       <React.Fragment>
-        <Nav.Link onClick={reset}>Back</Nav.Link>
+        <Nav.Link onClick={goBack}>Back</Nav.Link>
         <NavDropdown title='Games'>
           {games.map((gameOption) => {
             return (

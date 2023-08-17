@@ -52,10 +52,7 @@ const NewGameForm = ({ active, toggle }: GameFormProps): JSX.Element => {
       handleSubmit(gameName);
       setGameName('');
       toggle();
-    } else {
-      //!!! Create alert for form (Bootstrap Overlay)
-      console.log('TODO');
-    }
+    } 
   };
 
   const close = () => {

@@ -13,6 +13,8 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import CloseButton from 'react-bootstrap/CloseButton';
 import Button from 'react-bootstrap/Button';
+//Components
+import PopupAlert from './PopupAlert.tsx';
 
 type PlayerFormProps = {
   active: boolean;
@@ -23,6 +25,7 @@ const AddPlayerForm = ({ active, toggle }: PlayerFormProps): JSX.Element => {
   const dispatch = useDispatch();
   const game: Game = useSelector(selectGame);
   const [email, setEmail] = useState('');
+  const [invalidEmail, setInvalidEmail] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target) {
@@ -32,7 +35,6 @@ const AddPlayerForm = ({ active, toggle }: PlayerFormProps): JSX.Element => {
   };
 
   const handleSubmit = (event: React.FormEvent): void => {
-    //!!!Add handling for invalid email
     event.preventDefault();
     getUsers()
       .then((response) => {
@@ -45,7 +47,8 @@ const AddPlayerForm = ({ active, toggle }: PlayerFormProps): JSX.Element => {
           });
           toggle();
         } else {
-          console.log('TODO');
+          setInvalidEmail(true);
+          setTimeout(() => setInvalidEmail(false), 3000);
         }
       })
       .catch((e) => console.log(e));
@@ -54,6 +57,7 @@ const AddPlayerForm = ({ active, toggle }: PlayerFormProps): JSX.Element => {
   };
 
   return (
+    <React.Fragment>
     <Modal show={active}>
       <CloseButton onClick={toggle} />
       <Modal.Header>
@@ -82,6 +86,8 @@ const AddPlayerForm = ({ active, toggle }: PlayerFormProps): JSX.Element => {
         </Modal.Footer>
       </Form>
     </Modal>
+    <PopupAlert variant="danger" text='User not found!' active={invalidEmail} /> 
+    </React.Fragment>
   );
 };
 

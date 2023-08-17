@@ -1,5 +1,5 @@
 //React
-import { useState } from 'react';
+import React, { useState } from 'react';
 //Bootstrap
 import Modal from 'react-bootstrap/Modal';
 import CloseButton from 'react-bootstrap/CloseButton';
@@ -14,6 +14,8 @@ import { removeGame } from '../slices/allGameSlice.tsx';
 import { selectUser, changeUser } from '../slices/userSlice.tsx';
 //Types
 import { Game, User } from '../types.tsx';
+//Components
+import PopupAlert from './PopupAlert.tsx';
 
 type PopupProps = {
   active: boolean;
@@ -25,6 +27,7 @@ const GameDeletePopup = ({ active, toggle }: PopupProps): JSX.Element => {
   const game: Game = useSelector(selectGame);
   const user: User = useSelector(selectUser);
   const [gameName, setGameName] = useState('');
+  const [invalidName, setInvalidName] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target) {
@@ -50,12 +53,13 @@ const GameDeletePopup = ({ active, toggle }: PopupProps): JSX.Element => {
         })
         .catch((e) => console.log(e));
     } else {
-      //!!!Create popup
-      console.log('TODO');
+      setInvalidName(true);
+      setTimeout(() => setInvalidName(false), 3000);
     }
   };
 
   return (
+    <React.Fragment>
     <Modal show={active}>
       <CloseButton onClick={toggle} />
       <Modal.Header>
@@ -91,6 +95,8 @@ const GameDeletePopup = ({ active, toggle }: PopupProps): JSX.Element => {
         </Modal.Footer>
       </Form>
     </Modal>
+    <PopupAlert active={invalidName} variant='danger' text={'That doesn\'t match!'} />
+    </React.Fragment>
   );
 };
 
