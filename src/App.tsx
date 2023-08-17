@@ -38,7 +38,7 @@ const App = (): JSX.Element => {
   useEffect(() => {
     if (activeGame.gid && activeUser.uid) {
       navigate('/inventory');
-    } 
+    }
   }, [activeGame, activeUser, navigate]);
 
   const defineUser = (user) => {

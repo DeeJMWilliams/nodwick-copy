@@ -60,42 +60,46 @@ const GameDeletePopup = ({ active, toggle }: PopupProps): JSX.Element => {
 
   return (
     <React.Fragment>
-    <Modal show={active}>
-      <CloseButton onClick={toggle} />
-      <Modal.Header>
-        <Modal.Title>Delete {game.name}?</Modal.Title>
-      </Modal.Header>
-      <Form onSubmit={handleSubmit}>
-        <Modal.Body>
-          <p>
-            Are you sure you want to delete this game? This action{' '}
-            <strong>cannot</strong> be undone.
-          </p>
-          <p>
-            To permanently delete {game.name}, type its full name in the box
-            below, then press delete.
-          </p>
-          <Form.Group controlId='gameName'>
-            <Form.Label>{game.name}</Form.Label>
-            <Form.Control
-              as='input'
-              name='gameName'
-              placeholder={game.name}
-              onChange={handleChange}
-            />
-          </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={toggle} variant='secondary'>
-            Cancel
-          </Button>
-          <Button type='submit' variant='danger'>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Form>
-    </Modal>
-    <PopupAlert active={invalidName} variant='danger' text={'That doesn\'t match!'} />
+      <Modal show={active}>
+        <CloseButton onClick={toggle} />
+        <Modal.Header>
+          <Modal.Title>Delete {game.name}?</Modal.Title>
+        </Modal.Header>
+        <Form onSubmit={handleSubmit}>
+          <Modal.Body>
+            <p>
+              Are you sure you want to delete this game? This action{' '}
+              <strong>cannot</strong> be undone.
+            </p>
+            <p>
+              To permanently delete {game.name}, type its full name in the box
+              below, then press delete.
+            </p>
+            <Form.Group controlId='gameName'>
+              <Form.Label>{game.name}</Form.Label>
+              <Form.Control
+                as='input'
+                name='gameName'
+                placeholder={game.name}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={toggle} variant='secondary'>
+              Cancel
+            </Button>
+            <Button type='submit' variant='danger'>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+      <PopupAlert
+        active={invalidName}
+        variant='danger'
+        text={"That doesn't match!"}
+      />
     </React.Fragment>
   );
 };

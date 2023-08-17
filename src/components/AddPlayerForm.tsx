@@ -58,35 +58,39 @@ const AddPlayerForm = ({ active, toggle }: PlayerFormProps): JSX.Element => {
 
   return (
     <React.Fragment>
-    <Modal show={active}>
-      <CloseButton onClick={toggle} />
-      <Modal.Header>
-        <Modal.Title>Add Player</Modal.Title>
-      </Modal.Header>
-      <Form onSubmit={handleSubmit}>
-        <Modal.Body>
-          <Form.Group controlId='email'>
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              as='input'
-              type='email'
-              name='email'
-              placeholder='player@email.com'
-              onChange={handleChange}
-            />
-          </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant='secondary' onClick={toggle}>
-            Cancel
-          </Button>
-          <Button type='submit' variant='primary'>
-            Submit
-          </Button>
-        </Modal.Footer>
-      </Form>
-    </Modal>
-    <PopupAlert variant="danger" text='User not found!' active={invalidEmail} /> 
+      <Modal show={active}>
+        <CloseButton onClick={toggle} />
+        <Modal.Header>
+          <Modal.Title>Add Player</Modal.Title>
+        </Modal.Header>
+        <Form onSubmit={handleSubmit}>
+          <Modal.Body>
+            <Form.Group controlId='email'>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                as='input'
+                type='email'
+                name='email'
+                placeholder='player@email.com'
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={toggle}>
+              Cancel
+            </Button>
+            <Button type='submit' variant='primary'>
+              Submit
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+      <PopupAlert
+        variant='danger'
+        text='User not found!'
+        active={invalidEmail}
+      />
     </React.Fragment>
   );
 };

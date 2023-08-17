@@ -52,7 +52,7 @@ const NewGameForm = ({ active, toggle }: GameFormProps): JSX.Element => {
       handleSubmit(gameName);
       setGameName('');
       toggle();
-    } 
+    }
   };
 
   const close = () => {

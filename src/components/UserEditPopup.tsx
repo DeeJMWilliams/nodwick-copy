@@ -32,7 +32,7 @@ const UserEditPopup = ({ active, toggle }: Popup): JSX.Element => {
         })
         .catch((e) => console.log(e));
       setChangeSuccess(true);
-      setTimeout(() => setChangeSuccess(false), 3000)
+      setTimeout(() => setChangeSuccess(false), 3000);
     }
   };
 

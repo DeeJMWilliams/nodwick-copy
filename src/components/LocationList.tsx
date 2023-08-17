@@ -43,7 +43,14 @@ const LocationList = ({ type }: locationProps): JSX.Element => {
   const locationItems: Item[] = useSelector(selectLocationItems);
   const [deleting, setDeleting] = useState(false);
   const [editing, setEditing] = useState(false);
-  const [destination, setDestination] = useState<Location>({name: '', gid: '', lid: '', item_ids: [], timestamp: '', type: 'location'});
+  const [destination, setDestination] = useState<Location>({
+    name: '',
+    gid: '',
+    lid: '',
+    item_ids: [],
+    timestamp: '',
+    type: 'location',
+  });
   const [moved, setMoved] = useState(false);
 
   type ListItemProps = {
@@ -109,8 +116,8 @@ const LocationList = ({ type }: locationProps): JSX.Element => {
           });
         })
         .catch((e) => console.log(e));
-        setMoved(true);
-        setTimeout(() => setMoved(false), 3000);
+      setMoved(true);
+      setTimeout(() => setMoved(false), 3000);
     }
     setDestination({
       name: '',
@@ -188,7 +195,11 @@ const LocationList = ({ type }: locationProps): JSX.Element => {
           <ListGroup.Item>No entries yet!</ListGroup.Item>
         )}
       </ListGroup>
-    <PopupAlert variant='success' text='Item successfully moved!' active={moved}/>
+      <PopupAlert
+        variant='success'
+        text='Item successfully moved!'
+        active={moved}
+      />
     </React.Fragment>
   );
 };
