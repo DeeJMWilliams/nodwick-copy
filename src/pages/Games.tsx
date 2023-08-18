@@ -37,14 +37,12 @@ const Games = (): JSX.Element => {
       .catch((e) => console.log(e));
   }, [user, dispatch]);
 
-  const headerButtons = () => {
-    return <React.Fragment></React.Fragment>;
-  };
-
   return (
     <div className='games__grid'>
       <Header
-        buttons={headerButtons}
+        buttons={() => {
+          return <React.Fragment></React.Fragment>;
+        }}
         title={() => {
           return <React.Fragment></React.Fragment>;
         }}

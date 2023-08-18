@@ -2,7 +2,7 @@
 import { Game } from '../types.tsx';
 //Redux
 import { selectGames } from '../slices/allGameSlice.tsx';
-import { selectPreviewGame, changeGame } from '../slices/gamePreviewSlice.tsx';
+import { selectPreviewGame, changePreviewGame } from '../slices/gamePreviewSlice.tsx';
 import { useSelector, useDispatch } from 'react-redux';
 //Bootstrap
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -21,7 +21,7 @@ const GameList = (): JSX.Element => {
   const GameListItem = ({ game }: ListItemProps): JSX.Element => {
     return (
       <ListGroup.Item
-        onClick={() => dispatch(changeGame(game))}
+        onClick={() => dispatch(changePreviewGame(game))}
         className={`${game.gid === activeGameId ? 'active' : ''}`}>
         {game.name}
       </ListGroup.Item>

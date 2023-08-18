@@ -18,13 +18,13 @@ const gamePreviewSlice = createSlice({
   name: 'previewGame',
   initialState,
   reducers: {
-    changeGame: (state, action: { type: string; payload: Game }) => {
+    changePreviewGame: (state, action: { type: string; payload: Game }) => {
       state.value = action.payload;
     },
   },
 });
 
-export const { changeGame } = gamePreviewSlice.actions;
+export const { changePreviewGame } = gamePreviewSlice.actions;
 export const selectPreviewGame = (state) => state.previewGame.value;
 
 export default gamePreviewSlice.reducer;

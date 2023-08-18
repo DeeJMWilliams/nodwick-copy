@@ -9,6 +9,7 @@ import NewLocationForm from '../components/NewLocationForm.tsx';
 import AddPlayerForm from '../components/AddPlayerForm.tsx';
 import GameDeletePopup from '../components/GameDeletePopup.tsx';
 import GameEditPopup from '../components/GameEditPopup.tsx';
+import LeaveGamePopup from '../components/LeaveGamePopup.tsx';
 //Redux
 import { selectGames } from '../slices/allGameSlice.tsx';
 import { selectGame, setGame, resetGame } from '../slices/gameSlice.tsx';
@@ -37,6 +38,7 @@ const Inventory = () => {
   const [addingPlayer, setAddingPlayer] = useState(false);
   const [deletingGame, setDeletingGame] = useState(false);
   const [renamingGame, setRenamingGame] = useState(false);
+  const [leavingGame, setLeavingGame] = useState(false);
 
   //Get locations for game
   useEffect(() => {
@@ -90,6 +92,9 @@ const Inventory = () => {
           <NavDropdown.Item onClick={() => setRenamingGame(true)}>
             Rename Game
           </NavDropdown.Item>
+          <NavDropdown.Item onClick={() => setLeavingGame(true)}>
+            Leave Game
+          </NavDropdown.Item>
           <NavDropdown.Divider />
           <NavDropdown.Item onClick={() => setDeletingGame(true)}>
             Delete Game
@@ -117,6 +122,10 @@ const Inventory = () => {
         active={addingLocation !== ''}
         category={addingLocation}
         toggle={() => setAddingLocation('')}
+      />
+      <LeaveGamePopup
+        active={leavingGame}
+        toggle={() => setLeavingGame(false)}
       />
       <Header buttons={headerButtons} title={headerTitle} />
       <div className='inventory__body'>

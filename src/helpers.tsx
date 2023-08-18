@@ -21,3 +21,10 @@ export const change = (
     updateFunc(target.value);
   }
 };
+
+export const emptyGame = {
+    gid: '',
+    user_ids: [],
+    timestamp: '',
+    name: '',
+}

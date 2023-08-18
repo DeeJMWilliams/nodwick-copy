@@ -4,10 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { User, Game } from '../types.tsx';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPreviewGame } from '../slices/gamePreviewSlice.tsx';
+import { selectPreviewGame, changePreviewGame } from '../slices/gamePreviewSlice.tsx';
 import { setGame } from '../slices/gameSlice.tsx';
 //Methods
 import { getGameUsers } from '../methods.tsx';
+import { emptyGame } from '../helpers.tsx';
 //Bootstrap
 import Button from 'react-bootstrap/Button';
 
@@ -16,10 +17,11 @@ const GamePreview = (): JSX.Element => {
   const game: Game = useSelector(selectPreviewGame);
   const [users, setUsers] = useState<User[]>([]);
 
-  //Set list of users based on preview game 
+  //Set list of users based on preview game
   useEffect(() => {
-    getGameUsers(game.gid)
-    .then((response) => setUsers(response.data));
+    if (game.gid) {
+      getGameUsers(game.gid).then((response) => setUsers(response.data));
+    }
   }, [game]);
 
   if (!game.name) return <React.Fragment></React.Fragment>;
@@ -31,11 +33,16 @@ const GamePreview = (): JSX.Element => {
     }
   });
 
+  const enterGame = () => {
+    dispatch(setGame(game));
+    dispatch(changePreviewGame(emptyGame));
+  }
+
   return (
     <div style={{ padding: '0.5rem' }}>
       <p>Game: {game.name}</p>
       <p>Players: {userList}</p>
-      <Button variant='secondary' onClick={() => dispatch(setGame(game))}>
+      <Button variant='secondary' onClick={enterGame}>
         Enter
       </Button>
     </div>

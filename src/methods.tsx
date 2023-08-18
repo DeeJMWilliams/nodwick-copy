@@ -9,7 +9,7 @@ export const getUsers = () => {
 };
 
 export const getGameUsers = (game_id: string) => {
-  return axios.get(`${URL}/games/users?game_id=${game_id}`)
+  return axios.get(`${URL}/games/users?game_id=${game_id}`);
 };
 
 export const getUser = (user_id: string) => {
@@ -28,6 +28,12 @@ export const addUser = (user) => {
 
 export const renameUser = (name: string, user_id: string) => {
   return axios.patch(`${URL}/users?user_id=${user_id}`, { name });
+};
+
+export const removeUser = (game_id: string, user_id: string) => {
+  return axios.patch(
+    `${URL}/games/users?game_id=${game_id}&user_id=${user_id}`,
+  );
 };
 
 //Games
