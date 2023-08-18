@@ -4,7 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { User, Game } from '../types.tsx';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPreviewGame, changePreviewGame } from '../slices/gamePreviewSlice.tsx';
+import {
+  selectPreviewGame,
+  changePreviewGame,
+} from '../slices/gamePreviewSlice.tsx';
 import { setGame } from '../slices/gameSlice.tsx';
 //Methods
 import { getGameUsers } from '../methods.tsx';
@@ -36,7 +39,7 @@ const GamePreview = (): JSX.Element => {
   const enterGame = () => {
     dispatch(setGame(game));
     dispatch(changePreviewGame(emptyGame));
-  }
+  };
 
   return (
     <div style={{ padding: '0.5rem' }}>

@@ -2,7 +2,10 @@
 import { Game } from '../types.tsx';
 //Redux
 import { selectGames } from '../slices/allGameSlice.tsx';
-import { selectPreviewGame, changePreviewGame } from '../slices/gamePreviewSlice.tsx';
+import {
+  selectPreviewGame,
+  changePreviewGame,
+} from '../slices/gamePreviewSlice.tsx';
 import { useSelector, useDispatch } from 'react-redux';
 //Bootstrap
 import ListGroup from 'react-bootstrap/ListGroup';

@@ -23,8 +23,8 @@ export const change = (
 };
 
 export const emptyGame = {
-    gid: '',
-    user_ids: [],
-    timestamp: '',
-    name: '',
-}
+  gid: '',
+  user_ids: [],
+  timestamp: '',
+  name: '',
+};
