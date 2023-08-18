@@ -9,9 +9,9 @@ import { addUserToGame, addGame } from '../methods.tsx';
 //Types
 import { Game } from '../types.tsx';
 //Bootstrap
-import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Collapse from 'react-bootstrap/Collapse';
 
 type GameFormProps = {
   active: boolean;
@@ -60,39 +60,40 @@ const NewGameForm = ({ active, toggle }: GameFormProps): JSX.Element => {
     toggle();
   };
 
-  if (!active) return <React.Fragment></React.Fragment>;
-
   return (
-    <ListGroup.Item className='newGameForm'>
-      <Form onSubmit={submitNewGame}>
-        <Form.Group className='nameField'>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Form.Label>Name</Form.Label>
-            <Form.Text className='text-muted'>
-              Chars left: {40 - gameName.length}
-            </Form.Text>
-          </div>
-          <Form.Control
-            as='input'
-            name='name'
-            id='name'
-            placeholder='My new game'
-            value={gameName}
-            onChange={handleChange}
-            required
-            maxLength={40}
-          />
-        </Form.Group>
-        <span style={{ display: 'flex', justifyContent: 'right', gap: '3px' }}>
-          <Button type='submit' variant='primary'>
-            Create
-          </Button>
-          <Button variant='secondary' onClick={close}>
-            Cancel
-          </Button>
-        </span>
-      </Form>
-    </ListGroup.Item>
+    <Collapse in={active}>
+      <div className='newGameForm'>
+        <Form onSubmit={submitNewGame}>
+          <Form.Group className='nameField'>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Form.Label>Name</Form.Label>
+              <Form.Text className='text-muted'>
+                Chars left: {40 - gameName.length}
+              </Form.Text>
+            </div>
+            <Form.Control
+              as='input'
+              name='name'
+              id='name'
+              placeholder='My new game'
+              value={gameName}
+              onChange={handleChange}
+              required
+              maxLength={40}
+            />
+          </Form.Group>
+          <span
+            style={{ display: 'flex', justifyContent: 'right', gap: '3px' }}>
+            <Button type='submit' variant='primary'>
+              Create
+            </Button>
+            <Button variant='secondary' onClick={close}>
+              Cancel
+            </Button>
+          </span>
+        </Form>
+      </div>
+    </Collapse>
   );
 };
 

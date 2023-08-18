@@ -19,6 +19,10 @@
     margin-bottom: 0.5rem;
 }
 
+.games__right__blocks > div {
+    border: 1px solid #dee2e6;
+}
+
 .games__body {
     grid-area: 2 / 1 / 2 / 6;
     display: grid;

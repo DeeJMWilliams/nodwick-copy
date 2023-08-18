@@ -9,7 +9,6 @@ import { setGame } from '../slices/gameSlice.tsx';
 //Methods
 import { getUser } from '../methods.tsx';
 //Bootstrap
-import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 
 const GamePreview = (): JSX.Element => {
@@ -36,13 +35,13 @@ const GamePreview = (): JSX.Element => {
   });
 
   return (
-    <ListGroup.Item>
+    <div style={{ padding: '0.5rem' }}>
       <p>Game: {game.name}</p>
       <p>Players: {userList}</p>
       <Button variant='secondary' onClick={() => dispatch(setGame(game))}>
         Enter
       </Button>
-    </ListGroup.Item>
+    </div>
   );
 };
 

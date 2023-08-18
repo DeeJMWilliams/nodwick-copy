@@ -17,7 +17,6 @@ import { Game, User } from '../types.tsx';
 import { getGames } from '../methods.tsx';
 //Bootstrap
 import Button from 'react-bootstrap/Button';
-import ListGroup from 'react-bootstrap/ListGroup';
 
 const Games = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -54,17 +53,18 @@ const Games = (): JSX.Element => {
         <div className='games__left'>
           <GameList />
         </div>
-        <ListGroup className='games__right'>
-          {!newGame ? (
-            <Button onClick={() => setNewGame(true)} variant='secondary'>
-              New Game
-            </Button>
-          ) : (
-            <></>
-          )}
-          <NewGameForm active={newGame} toggle={() => setNewGame(false)} />
-          <GamePreview />
-        </ListGroup>
+        <div className='games__right'>
+          <Button
+            onClick={() => setNewGame(true)}
+            variant='secondary'
+            style={{ width: '100%' }}>
+            New Game
+          </Button>
+          <div className='games__right__blocks'>
+            <NewGameForm active={newGame} toggle={() => setNewGame(false)} />
+            <GamePreview />
+          </div>
+        </div>
       </div>
     </div>
   );
