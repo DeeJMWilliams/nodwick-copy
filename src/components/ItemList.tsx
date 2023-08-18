@@ -12,10 +12,10 @@ import {
   selectLocationItems,
 } from '../slices/locationItemSlice.tsx';
 import { setItem, selectItem } from '../slices/itemSlice.tsx';
-import { setDraggedItem } from '../slices/dragSlice.tsx';
+import { selectDraggedItem, setDraggedItem } from '../slices/dragSlice.tsx';
 //Methods
 import { getLocationItems } from '../methods.tsx';
-import { compare } from '../helpers.tsx';
+import { compare, emptyItem } from '../helpers.tsx';
 //Components
 import NewItemForm from './NewItemForm.tsx';
 import ItemPreview from './ItemPreview.tsx';
@@ -28,6 +28,7 @@ const ItemList = () => {
   const game = useSelector(selectGame);
   const items = useSelector(selectLocationItems);
   const activeItem = useSelector(selectItem);
+  const draggedItem = useSelector(selectDraggedItem);
   const [newItem, setNewItem] = useState(false);
 
   useEffect(() => {
@@ -58,6 +59,11 @@ const ItemList = () => {
     dispatch(setDraggedItem(item));
   };
 
+  const handleDragEnd = () => {
+    dispatch(setDraggedItem(emptyItem));
+  }
+
+  //!!!Update cursor style while dragging
   return (
     <React.Fragment>
       <ItemPreview active={activeItem.iid !== ''} />
@@ -79,8 +85,9 @@ const ItemList = () => {
               <div
                 draggable
                 className='draggable'
-                style={{ borderRadius: '0.375rem' }}
+                style={{ borderRadius: '0.375rem', cursor: item.iid === draggedItem.iid ? 'grabbing' : 'grab' }}
                 onDragStart={() => handleDragStart(item)}
+                onDragEnd={handleDragEnd}
                 key={item.iid}>
                 <ItemListItem item={item} />
               </div>

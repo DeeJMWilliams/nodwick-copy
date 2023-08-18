@@ -41,3 +41,11 @@
 .inventory__right {
     grid-column: 4 / 4;
 }
+
+.badges {
+    cursor: default;
+}
+
+.badges > * {
+    cursor: pointer;
+}

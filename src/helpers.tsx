@@ -28,3 +28,11 @@ export const emptyGame = {
   timestamp: '',
   name: '',
 };
+
+export const emptyItem = {
+  gid: '',
+  lid: '',
+  iid: '',
+  name: '',
+  type: '',
+}
