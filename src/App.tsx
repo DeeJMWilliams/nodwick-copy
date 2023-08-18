@@ -18,7 +18,7 @@ import './App.css';
 //Auth
 import { useAuth0 } from '@auth0/auth0-react';
 //Methods
-import { addUser, getUsers, getSingleUser } from './methods.tsx';
+import { addUser, getUsers, getUser } from './methods.tsx';
 
 const App = (): JSX.Element => {
   const { user } = useAuth0();
@@ -58,7 +58,7 @@ const App = (): JSX.Element => {
         ) {
           createNewUser(app_user);
         } else {
-          getSingleUser(app_user.sub).then((response) => {
+          getUser(app_user.sub).then((response) => {
             dispatch(changeUser(response.data));
           });
         }

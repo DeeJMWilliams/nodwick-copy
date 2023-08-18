@@ -1,5 +1,6 @@
 //React, Routing
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 //Redux
 import { selectUser, resetUser } from '../slices/userSlice.tsx';
 import { useSelector, useDispatch } from 'react-redux';
@@ -22,6 +23,7 @@ type headerProps = {
 
 const Header = ({ buttons, title }: headerProps) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [about, setAbout] = useState(false);
   const [options, setOptions] = useState(false);
   const user: User = useSelector(selectUser);
@@ -30,6 +32,7 @@ const Header = ({ buttons, title }: headerProps) => {
   const signout = () => {
     logout();
     dispatch(resetUser());
+    navigate('/');
   };
 
   return (

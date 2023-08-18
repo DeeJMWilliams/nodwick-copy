@@ -8,14 +8,11 @@ export const getUsers = () => {
   return axios.get(`${URL}/users`);
 };
 
-//!!! Add direct route on back end for full list of users
-export const getUser = (user_id: string) => {
-  return axios.get(`${URL}/users?user_id=${user_id}`).then((response) => {
-    return response.data;
-  });
+export const getGameUsers = (game_id: string) => {
+  return axios.get(`${URL}/games/users?game_id=${game_id}`)
 };
 
-export const getSingleUser = (user_id: string) => {
+export const getUser = (user_id: string) => {
   return axios.get(`${URL}/users?user_id=${user_id}`);
 };
 

@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectPreviewGame } from '../slices/gamePreviewSlice.tsx';
 import { setGame } from '../slices/gameSlice.tsx';
 //Methods
-import { getUser } from '../methods.tsx';
+import { getGameUsers } from '../methods.tsx';
 //Bootstrap
 import Button from 'react-bootstrap/Button';
 
@@ -16,13 +16,10 @@ const GamePreview = (): JSX.Element => {
   const game: Game = useSelector(selectPreviewGame);
   const [users, setUsers] = useState<User[]>([]);
 
-  //Make list of all users in game's list of user IDs
+  //Set list of users based on preview game 
   useEffect(() => {
-    Promise.all(
-      game.user_ids.map(async (user_id: string) => {
-        return getUser(user_id);
-      }),
-    ).then((response) => setUsers(response));
+    getGameUsers(game.gid)
+    .then((response) => setUsers(response.data));
   }, [game]);
 
   if (!game.name) return <React.Fragment></React.Fragment>;
